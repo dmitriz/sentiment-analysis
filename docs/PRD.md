@@ -23,90 +23,131 @@ Create a simple yet powerful tool that allows users to ask questions about curre
 
 ## Core Features & Requirements
 
-### 1. Interactive Question Interface
-**Feature:** Simple web interface for user input
-- **Input**: Natural language questions about sentiment/topics
-- **Output**: Structured analysis with citations
-- **Example**: "How do developers feel about Google Gemini Veo3?"
+### 🎯 MVP - Phase 1 (Focus ONLY on this)
 
-### 2. Latest Data Analysis (Not Real-Time Streaming)
-**Feature:** Process latest available X data through Grok Live Search API
-- **Clarification**: "Real-time" means latest available data, not streaming
-- **Data Sources**: Recent tweets, trending discussions
-- **Time Window**: Configurable (default: last 24-48 hours)
+#### 1. Single Core Feature: Question → Raw Response
+**Feature:** Basic question input that returns raw Grok API response
+- **Input**: Simple text question about X/Twitter sentiment
+- **Processing**: Send question to Grok Live Search API via n8n
+- **Output**: Display raw JSON response from Grok API
+- **Example**: "React 19 sentiment" → Raw tweet data in JSON format
+- **No Analysis**: Just show what Grok returns, no processing
 
-### 3. Sentiment Classification
-**Feature:** Analyze sentiment of collected data
-- **Categories**: Positive, Negative, Neutral, Mixed
-- **Confidence Scores**: Percentage confidence for each classification
-- **Context Awareness**: Consider topic-specific sentiment nuances
+**Success Criteria:**
+- User types question in simple HTML form
+- Question sent to n8n webhook
+- n8n calls Grok API
+- Raw response displayed on page
+- Working end-to-end flow
 
-### 4. Trending Topics Detection
-**Feature:** Identify emerging trends and popular discussions
-- **Metrics**: Engagement rates, mention frequency, viral content
-- **Categories**: Tech trends, memes, discussions
-- **Filtering**: Remove noise and irrelevant content
+---
 
-### 5. Tech Leader Insights
-**Feature:** Track opinions from influential tech personalities
-- **Target Accounts**: Verified tech leaders, developers, industry experts
-- **Opinion Extraction**: Key quotes, stance identification
-- **Influence Metrics**: Engagement and reach of their posts
+### 🚀 Future Backlog (NOT for MVP - implement later)
 
-### 6. Citation System
-**Feature:** Provide direct links to source tweets
-- **Requirements**: Every claim must have source citation
-- **Format**: Direct X post links with author attribution
-- **Verification**: Ensure links are accessible and accurate
+#### 2. Sentiment Classification (Phase 2)
+- Analyze sentiment of collected data
+- Categories: Positive, Negative, Neutral, Mixed
+- Confidence scores and context awareness
 
-## Technical Architecture (Simplified from Tutorial)
+#### 3. Trending Topics Detection (Phase 3)
+- Identify emerging trends and popular discussions
+- Engagement metrics and viral content identification
+
+#### 4. Tech Leader Insights (Phase 4)
+- Track opinions from influential tech personalities
+- Opinion extraction and influence metrics
+
+#### 5. Citation System (Phase 5)
+- Provide direct links to source tweets
+- Proper attribution and link verification
+
+#### 6. Enhanced UI (Phase 6)
+- Better formatting and user experience
+- Error handling and loading states
+
+## Technical Architecture (Minimalistic MVP)
 
 ### Frontend: Basic HTML/CSS/JavaScript
-- **Replaced**: Bolt.new → Simple static files
-- **Reasoning**: Avoid complexity, focus on functionality
-- **Features**: Single-page form, results display, minimal styling
+- **Single HTML file**: Simple form with textarea and submit button
+- **JavaScript**: Fetch API to send request to backend
+- **CSS**: Minimal styling for readability
+- **Features**: Input form, display raw JSON response
 
-### Backend: Node.js + Express
-- **API Endpoints**: Question processing, results retrieval
-- **Data Flow**: Receive question → Process via n8n → Return formatted results
-- **Error Handling**: Timeout management, API failures
+### Backend: Node.js + Express (Minimal)
+- **Single API endpoint**: POST /analyze
+- **Function**: Forward question to n8n webhook
+- **Response**: Return raw n8n/Grok response to frontend
+- **No database**: No data persistence for MVP
 
-### Automation: n8n Workflows
-- **Purpose**: Orchestrate API calls and data processing
-- **Components**: Grok API integration, data transformation, response formatting
-- **Configuration**: Workflow templates, error handling, retry logic
-
-### Database: Supabase (If Required)
-- **Usage**: Store processed results, user queries (optional)
-- **Tables**: queries, results, citations
-- **Real-time**: Not required for MVP
+### Automation: n8n Workflow (Essential Only)
+- **Single workflow**: Receive question → Call Grok API → Return response
+- **No complex processing**: Pass-through with minimal transformation
+- **Error handling**: Basic try/catch, return errors to user
 
 ### Data Source: Grok Live Search API
-- **Purpose**: Access latest X data without direct Twitter API complexity
-- **Rate Limits**: Respect API limitations
-- **Data Types**: Tweets, user profiles, engagement metrics
+- **Purpose**: Get raw X/Twitter data for user questions
+- **Output**: Return whatever Grok provides (no filtering/processing)
+
+---
+
+### 🚀 Future Architecture (Post-MVP)
+
+#### Database: Supabase (Phase 3)
+- Store processed results, user queries (optional)
+- Real-time features and user accounts
+
+#### Advanced Processing (Phase 2-6)
+- Sentiment analysis logic
+- Data transformation and filtering
+- Citation extraction and validation
+
+#### Enhanced Frontend (Phase 6)
+- React/Vue.js for better UX
+- Real-time updates and error handling
 
 ## Non-Functional Requirements
 
-### Performance
-- **Response Time**: < 30 seconds for analysis
-- **Concurrent Users**: Support 10+ simultaneous queries
-- **Data Freshness**: Within 24 hours of posting
+### 🎯 MVP Requirements (Essential Only)
 
-### Reliability
-- **Uptime**: 95%+ availability
-- **Error Recovery**: Graceful degradation when APIs fail
-- **Data Accuracy**: 90%+ citation link validity
+#### Performance (Basic)
+- **Response Time**: < 60 seconds for API call (we'll optimize later)
+- **Concurrent Users**: Support 1 user (single-threaded for now)
+- **Data Freshness**: Whatever Grok API provides
 
-### Security
-- **API Keys**: Secure environment variable storage
-- **Rate Limiting**: Prevent API abuse
-- **Input Validation**: Sanitize user queries
+#### Reliability (Minimal)
+- **Uptime**: Best effort (no SLA for MVP)
+- **Error Recovery**: Show error messages to user
+- **API Failures**: Display "API unavailable" message
 
-### Scalability
-- **MVP Scope**: Single server deployment
-- **Future**: Horizontal scaling capability
-- **Storage**: Minimal data persistence needs
+#### Security (Basic)
+- **API Keys**: Store in .env file
+- **Input Validation**: Basic string length limits
+- **No Authentication**: Public access for MVP
+
+---
+
+### 🚀 Future Requirements (Post-MVP)
+
+#### Performance (Phase 2)
+- Response time optimization
+- Concurrent user support
+- Caching and rate limiting
+
+#### Reliability (Phase 3)
+- 95%+ uptime target
+- Graceful degradation
+- Retry mechanisms
+
+#### Security (Phase 4)
+- User authentication
+- Rate limiting
+- Input sanitization
+- Secure API key management
+
+#### Scalability (Phase 5)
+- Horizontal scaling
+- Load balancing
+- Database optimization
 
 ## Success Metrics
 
@@ -179,20 +220,33 @@ Create a simple yet powerful tool that allows users to ask questions about curre
 
 ## Acceptance Criteria
 
-### Minimum Viable Product (MVP)
-1. User can input a question about X sentiment
-2. System processes the question through n8n workflow
-3. Grok API returns relevant tweet data
-4. Basic sentiment analysis is performed
-5. Results are displayed with proper citations
-6. Direct links to source tweets work correctly
+### 🎯 Minimum Viable Product (MVP) - Definition of Done
+1. **Input**: User can type a question in HTML form
+2. **Processing**: Question sent to n8n via webhook
+3. **API Call**: n8n successfully calls Grok Live Search API
+4. **Response**: Raw Grok response returned to user
+5. **Display**: JSON response displayed in browser (even if ugly)
+6. **Error Handling**: Basic error messages if API fails
 
-### Definition of Done
-- All core features implemented and tested
-- Documentation complete and accurate
-- Error handling implemented
-- Performance targets met
-- Code follows project conventions (snake_case, functional programming)
+**That's it!** No sentiment analysis, no fancy UI, no database - just working end-to-end data flow.
+
+---
+
+### 🚀 Future Definition of Done (Post-MVP)
+
+#### Phase 2: Basic Analysis
+- Sentiment classification added
+- Formatted output instead of raw JSON
+
+#### Phase 3: Enhanced Features  
+- Citation extraction
+- Better error handling
+- Improved UI
+
+#### Phase 4: Production Ready
+- Performance optimization
+- Security hardening  
+- Comprehensive testing
 
 ## Future Enhancements (Post-Tutorial)
 

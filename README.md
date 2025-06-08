@@ -1,51 +1,50 @@
-# Tutorial Implementation: Real-Time X Analysis App
+# X Sentiment Analysis - Tutorial Implementation
 
-This project follows Mark Kashef's tutorial for building a real-time X (formerly Twitter) analysis app.
+**Following Tutorial:** [Real-Time X Analysis App by Mark Kashef](https://www.youtube.com/watch?v=7NIN0KNcVdM&si=bbMitYMgQWnoNpqB)  
+**Approach:** Minimalistic MVP → Progressive Enhancement  
+**Focus:** Documentation → Tests → Implementation
 
-## 🎯 Tutorial Source
+## 🎯 Current Status: MVP Planning Phase
 
-**Creator:** Mark Kashef  
-**Published:** June 6, 2025  
-**Video:** [Real-Time X Analysis App Tutorial](https://www.youtube.com/watch?v=7NIN0KNcVdM&si=bbMitYMgQWnoNpqB)
+### MVP Goal (Ultra-Minimal)
+**Single Feature**: Raw question input → Raw JSON response display  
+**No Processing**: Just pass-through data flow to prove connectivity  
+**Timeline**: Complete end-to-end flow first, enhance later
 
-## 🏗️ Architecture
+## 📁 Project Structure
 
-- **Frontend:** Bolt.new (UI for user interaction)
-- **Backend:** Supabase (data routing & edge functions)
-- **Automation:** n8n workflows
-- **Data Source:** Grok's Live Search API
-- **AI Agent:** Custom Pulse agent for analysis
-
-## ✨ Features
-
-- Real-time sentiment analysis from X posts
-- Live trending memes detection
-- Tech leader insights tracking
-- Citation-rich responses with direct links
-- Metadata routing for improved AI accuracy
+```
+sentiment-analysis/
+├── docs/
+│   ├── PRD.md                    # Product Requirements (MVP focused)
+│   ├── test-specifications.md    # MVP testing strategy  
+│   └── taskmaster-setup.md      # Task management setup
+├── src/
+│   ├── index.js                 # Main Express server
+│   └── config/
+│       └── app_config.js        # Environment configuration
+└── TUTORIAL_IMPLEMENTATION.md   # Tutorial tracking
+```
 
 ## 🚀 Quick Start
 
-1. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+### 1. Environment Setup
+```bash
+# Copy environment template
+cp .env.example .env
 
-2. **Set up environment variables:**
-   ```bash
-   cp .env.example .env
-   # Edit .env with your API keys and configuration
-   ```
+# Add your API keys (minimal required):
+# GROK_API_KEY=your_key
+# N8N_WEBHOOK_URL=your_webhook_url
+```
 
-3. **Run setup script:**
-   ```bash
-   npm run setup
-   ```
+### 2. Task Management (Optional)
+Follow [TaskMaster Setup Guide](./docs/taskmaster-setup.md) to enable AI-powered task tracking.
 
-4. **Start development server:**
-   ```bash
-   npm run dev
-   ```
+### 3. Development Approach
+1. **Documentation First**: Complete PRD and test specs ✅
+2. **Tests Second**: Implement minimal test suite (next)  
+3. **Implementation Third**: Build to pass tests (after tests)
 
 ## 📁 Project Structure
 
